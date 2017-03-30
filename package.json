@@ -1,8 +1,12 @@
 {
-  "name": "js-error-report",
-  "version": "1.0.0",
+  "name": "error-report-crab",
+  "version": "1.0.1",
   "description": "错误上报组件",
   "main": "js-error-report.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crab1127/js-error-report.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
