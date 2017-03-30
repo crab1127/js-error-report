@@ -1,0 +1,15 @@
+{
+  "name": "js-error-report",
+  "version": "1.0.0",
+  "description": "错误上报组件",
+  "main": "js-error-report.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "error",
+    "report"
+  ],
+  "author": "crab",
+  "license": "ISC"
+}
