@@ -1,10 +1,5 @@
 // 错误上报
 
-// 参考了
-// https://github.com/CurtisCBS/monitor/blob/master/monitor.js
-// https://github.com/hezhengjie/jsErrorReport/blob/master/src/jsErrorReport.js
-// https://github.com/BetterJS/badjs-report
-
 (function(window) {
   if (window.FE_DEBUG) {
     return window.FE_DEBUG

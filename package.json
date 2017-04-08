@@ -1,8 +1,8 @@
 {
   "name": "error-report-crab",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "错误上报组件",
-  "main": "js-error-report.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/crab1127/js-error-report.git"

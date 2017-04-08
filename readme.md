@@ -18,3 +18,7 @@
   })
 ```
 
+## 参考了
+https://github.com/CurtisCBS/monitor/blob/master/monitor.js
+https://github.com/hezhengjie/jsErrorReport/blob/master/src/jsErrorReport.js
+https://github.com/BetterJS/badjs-report
