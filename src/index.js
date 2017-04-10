@@ -1,5 +1,6 @@
 // 错误上报
 
+;
 (function(window) {
   if (window.FE_DEBUG) {
     return window.FE_DEBUG
@@ -136,7 +137,7 @@
     },
   }
   window.FE_DEBUG = FE_DEBUG
-})(window)
+})(window);
 
 if (typeof module !== 'undefined') {
   module.exports = FE_DEBUG
