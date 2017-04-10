@@ -24,14 +24,6 @@
     return Object.prototype.toString.call(data) === '[object ' + type + ']'
   }
 
-  var isEmpty = function(obj) {
-    if (obj === null) return ture
-    if (isDataType(obj, 'Number')) {
-      return false
-    }
-    return !obj
-  }
-
   // 格式化参数
   var formatParams = function(data) {
     var arr = [];
@@ -43,7 +35,6 @@
 
   // 上报函数
   var sumbit = function(data) {
-    console.error('errorInfo', data)
     for (var key in data) {
       _config[key] = data[key]
     }
@@ -54,14 +45,15 @@
   // 监控资源加载错误(img,script,css,以及jsonp)
   var resourceLoadError = function() {
     window.addEventListener('error', function(e) {
-      let errorInfo = {
+      var errorInfo = {
         type: 3,
         fu: e.target.currentSrc,
         msg: e.target.localName + ' is load error',
         referer: location.href
       }
-      if (e.target != window) { //抛去js语法错误
-        // var reportData = Object.assign({}, _config, errorInfo)
+
+      //抛去js语法错误
+      if (e.target != window) {
         sumbit(errorInfo)
       }
     }, true);
@@ -79,7 +71,7 @@
         col = col || (window.event && window.event.errorCharacter) || 0;
 
         defaults.t = new Date().getTime();
-        let errorInfo = {
+        var errorInfo = {
           type: 1,
           msg: msg,
           fu: url,
@@ -95,9 +87,9 @@
           errorInfo.stack = error.stack.toString();
         } else if (!!arguments.callee) {
           var ext = []
-          let f = arguments.callee
+          var f = arguments.callee
             // 只拿3层堆栈信息
-          let c = 3
+          var c = 3
           while (f && (--c > 0)) {
             ext.push(f.toString())
             if (f === f.caller) {
@@ -108,7 +100,6 @@
           errorInfo = ext.join(',')
         }
 
-        // var reportData = Object.assign({}, _config, errorInfo)
 
         // 把错误信息发送给后台
         sumbit(errorInfo)
@@ -120,20 +111,21 @@
 
   var FE_DEBUG = {
     // 初始化
-    init(siteId) {
+    init: function(siteId) {
       if (!siteId) return false
 
-      Object.assign(_config, { siteId })
+      _config.siteId = siteId
 
       resourceLoadError()
       jsRunError()
 
     },
     // 上报
-    report(options) {
+    report: function(options) {
+
       if (!isDataType(options, 'Object')) return false
-      Object.assign(_config, options)
-      sumbit(_config)
+
+      sumbit(options)
     },
   }
   window.FE_DEBUG = FE_DEBUG
