@@ -121,7 +121,7 @@
     // 初始化
     init: function(options) {
       if (!options.siteId) return false
-      _config.siteId = siteId
+      _config.siteId = options.siteId
 
       _config.silent && (_config.silent = options.silent)
 
