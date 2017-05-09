@@ -1,5 +1,6 @@
 // 错误上报
 
+// 开启静默开关功能
 ;
 (function(window) {
   if (window.FE_DEBUG) {
@@ -9,12 +10,13 @@
   var REFERER_URL = 'http://tomato.harsonserver.com/report'
   var _config = {
     siteId: 0, // 站点id
-    type: 1, // 错误类型
+    type: 1, // 错误类型 1，js错误  2:ajax错误 3:资源错误
     msg: null, // 错误内容
     fu: null, // 错误文件路径
     fl: null, // 错误行数
     fc: null, // 错误数
     referer: null, // 错误页面
+    silent: false, // 安静模式
     w: window.screen.availWidth, // 设备宽度
     h: window.screen.availHeight, // 设备高度
   }
@@ -35,6 +37,9 @@
 
   // 上报函数
   var sumbit = function(data) {
+    // 开启静默就不发通知
+    if (_config.silent) return;
+
     for (var key in data) {
       _config[key] = data[key]
     }
@@ -45,9 +50,10 @@
   // 监控资源加载错误(img,script,css,以及jsonp)
   var resourceLoadError = function() {
     window.addEventListener('error', function(e) {
+      var fileUrl = e.target.localName === 'link' ? e.target.href : e.target.src
       var errorInfo = {
         type: 3,
-        fu: e.target.currentSrc,
+        fu: fileUrl,
         msg: e.target.localName + ' is load error',
         referer: location.href
       }
@@ -62,7 +68,8 @@
   // js语法错误
   var jsRunError = function() {
     window.onerror = function(msg, url, line, col, error) {
-      // 不知名错误直接不上报
+      console.error(msg, error)
+        // 不知名错误直接不上报
       if (msg === 'Script error.' || !url) return;
 
       //采用异步的方式,避免阻塞
@@ -105,7 +112,8 @@
         sumbit(errorInfo)
       }, 0);
 
-      return true; //错误不会console浏览器上,如需要，可将这样注释
+      //错误不会console浏览器上,如需要，可将这样注释
+      return true
     }
   }
 

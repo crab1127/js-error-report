@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="http://tomato.harsonserver.com/dist/build2.css">
+  <script>
+    window.addEventListener('error', function(e) {
+      if (e.target === window) return;
+      console.log(12345, e)
+    }, true);
+    window.onerror = function(msg, url, line, col, error) {
+      if (msg === 'Script error.' || !url) return;
+      console.log(msg, url, line, col, error)
+      return true
+    }
+  </script>
+</head>
+
+<body>
+  <script>
+    function a() {
+      var a = b;
+      return a
+    }
+    try {
+      a()
+    } catch (e) {
+      console.error(e.name, 1, e.message)
+    }
+  </script>
+  <img src="http://tomato.harsonserver.com/dist/build22222.css" alt="">
+  <script src="http://tomato.harsonserver.com/dist/build2.js"></script>
+</body>
+
+</html>
