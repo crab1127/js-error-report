@@ -119,10 +119,11 @@
 
   var FE_DEBUG = {
     // 初始化
-    init: function(siteId) {
-      if (!siteId) return false
-
+    init: function(options) {
+      if (!options.siteId) return false
       _config.siteId = siteId
+
+      _config.silent && (_config.silent = options.silent)
 
       resourceLoadError()
       jsRunError()
