@@ -29,8 +29,10 @@
     try {
       a()
     } catch (e) {
-      console.error(e.name, 1, e.message)
+      console.error(12, e.name, 1, e.message, 2, e.stack.toString(), 3, e.description)
     }
+
+    function error1(e) {}
   </script>
   <img src="http://tomato.harsonserver.com/dist/build22222.css" alt="">
   <script src="http://tomato.harsonserver.com/dist/build2.js"></script>

@@ -35,6 +35,39 @@
     return arr.join("&");
   }
 
+  var processError = function(errObj) {
+    try {
+      if (errObj.stack) {
+
+        var url = errObj.stack.match("https?://[^\n]+");
+        url = url ? url[0] : "";
+        var rowCols = url.match(":(\\d+):(\\d+)");
+        if (!rowCols) {
+          rowCols = [0, 0, 0];
+        }
+
+        return {
+          msg: errObj.name + ' ' + errObj.message,
+          stack: errObj.stack.toString(),
+          fu: url.replace(rowCols[0], ''), // 错误文件路径
+          fl: rowCols[1], // 错误行数
+          fc: rowCols[2], // 错误数
+          referer: location.href
+        }
+      } else {
+        return {
+          msg: errObj.name + ' ' + errObj.message,
+          referer: location.href
+        }
+      }
+    } catch (err) {
+      return {
+        msg: JSON.stringify(errObj),
+        referer: location.href
+      }
+    }
+  }
+
   // 上报函数
   var sumbit = function(data) {
     // 开启静默就不发通知
@@ -77,7 +110,6 @@
         //不一定所有浏览器都支持col参数，如果不支持就用window.event来兼容
         col = col || (window.event && window.event.errorCharacter) || 0;
 
-        defaults.t = new Date().getTime();
         var errorInfo = {
           type: 1,
           msg: msg,
@@ -135,6 +167,11 @@
       if (!isDataType(options, 'Object')) return false
 
       sumbit(options)
+    },
+    // 上报
+    reportError: function(errObj) {
+      var errorInfo = processError(errObj)
+      sumbit(errorInfo)
     },
   }
   window.FE_DEBUG = FE_DEBUG
